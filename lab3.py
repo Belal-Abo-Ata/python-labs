@@ -1,9 +1,7 @@
 # 1- Create class employee with the following characteristics:
 
-#! /bin/env python3
 from typing import List
 from mysql.connector import connect, Error  # type: ignore
-from uuid import uuid4
 
 
 DB_URL = "localhost"
@@ -15,8 +13,8 @@ DB_DATABASE = "python"
 class Employee:
     employees: List["Employee"] = []
 
-    def __init__(self, first_name, last_name, age, department, salary) -> None:
-        self.id = str(uuid4())
+    def __init__(self, id, first_name, last_name, age, department, salary) -> None:
+        self.id = id
         self.first_name = first_name
         self.last_name = last_name
         self.age = age
@@ -36,8 +34,18 @@ class Employee:
     def show(self):
         show_employee(mydb, self)
 
-    def list_employees(self):
+    @staticmethod
+    def list_employees():
         show_all_empolyees(mydb)
+
+
+class Manager(Employee):
+    def __init__(self, id, first_name, last_name, age, department, salary) -> None:
+        super().__init__(id, first_name, last_name, age, department, salary)
+
+    def show(self):
+        pass
+        show_employee(mydb, self)
 
 
 def connect_to_db(DB_URL, DB_USER, DB_PASSWORD, DB_DATABASE):
@@ -132,11 +140,19 @@ def delete_employee(connection, employee):
 def show_employee(connection, employee):
     try:
         cur = connection.cursor()
-        cur.execute(
+        query = (
             """
+            SELECT id, first_name, last_name, age FROM employees
+                WHERE id = %s
+            """
+            if type(employee) is Manager
+            else """            
             SELECT * FROM employees
                 WHERE id = %s
-                    """,
+            """
+        )
+        cur.execute(
+            query,
             [employee.id],
         )
         employee_data = cur.fetchone()
@@ -162,15 +178,3 @@ def show_all_empolyees(connection):
 
 
 mydb = connect_to_db(DB_URL, DB_USER, DB_PASSWORD, DB_DATABASE)
-
-if mydb:
-    create_employee_table(mydb)
-    emp1 = Employee("Belal", "Abo Ata", 23, "IT", 3000)
-    emp2 = Employee("Belal", "Mohamed", 17, "SA", 2000)
-    emp3 = Employee("Belal", "Ali", 32, "MA", 2000)
-
-    emp1.list_employees()
-    emp1.show()
-    emp1.transfer("MA")
-    emp2.fire()
-    emp1.list_employees()
