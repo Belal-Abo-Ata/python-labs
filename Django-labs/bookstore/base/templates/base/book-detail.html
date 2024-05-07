@@ -1,0 +1,13 @@
+{% extends 'main.html' %}
+
+{% block content %}
+<div class="hero min-h-screen bg-base-200">
+    <div class="hero-content flex-col lg:flex-row-reverse">
+        <img src="{{book.image}}" class="max-w-sm rounded-lg shadow-2xl" />
+        <div>
+            <h1 class="text-5xl font-bold">{{book.name}}</h1>
+            <p class="py-6">{{book.desc}}</p>
+        </div>
+    </div>
+</div>
+{% endblock content %}
