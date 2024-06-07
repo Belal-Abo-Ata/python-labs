@@ -1,0 +1,42 @@
+{% extends 'main/base_layout.html' %}
+{% block main-content %}
+<div class="container mx-auto flex flex-col justify-center items-center" style="min-height: 80vh;">
+  <h2 class="text-center font-semibold text-3xl mb-6 text-indigo-500">Welcome to Book Details of: {{book.title}}</h2>
+  <div class="flex justify-center mt-3 p-2">
+    <div class="bg-white rounded-lg shadow-md p-6">
+      <h5 class="text-lg font-bold mb-4 text-indigo-500">
+        Book Title: <span class="text-gray-800">{{ book.title }}</span>
+      </h5>
+      <p class="text-lg mb-2 text-indigo-500 font-bold">
+        Book ID: <span class="text-gray-800">{{ book.id }}</span>
+      </p>
+      <p class="text-lg mb-2 text-indigo-500 font-bold">
+        Book Author: <span class="text-gray-800">{{ book.author_name }}</span>
+      </p>
+      <p class="text-lg mb-2 text-indigo-500 font-bold">
+        Book Description: <span class="text-gray-800">{{ book.description }}</span>
+      </p>
+      <p class="text-lg mb-2 text-indigo-500 font-bold">
+        Book Type: <span class="text-gray-800">{{ book.type }}</span>
+      </p>
+      <p class="text-lg mb-2 text-indigo-500 font-bold">
+        Book Rate: <span class="text-gray-800">{{ book.rate }}</span>
+      </p>
+      <p class="text-lg mb-2 text-indigo-500 font-bold">
+        Book Views: <span class="text-gray-800">{{ book.views }}</span>
+      </p>
+      <p class="text-lg mb-2 text-indigo-500 font-bold">
+        Book User: <span class="text-gray-800">{{ book.user }}</span>
+      </p>
+      <p class="text-lg mb-2 text-indigo-500 font-bold">
+        Book ISBN: <span class="text-gray-800">{{ book.isbn }}</span>
+      </p>
+      {% for category in book.category.all %}
+      <p class="text-lg mb-2 text-indigo-500 font-bold">
+        Book Category: <span class="text-gray-800">{{ category.name }}</span>
+      </p>
+      {% endfor %}
+    </div>
+  </div>
+</div>
+{% endblock %}

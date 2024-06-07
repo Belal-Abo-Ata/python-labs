@@ -1,0 +1,40 @@
+{% extends 'main/base_layout.html' %}
+{% load static %}
+
+{% block title %}Create New Book{% endblock %}
+
+{% block main-content %}
+
+<div class="container mx-auto">
+    <form class="max-w-md mx-auto bg-white p-8 rounded shadow-md" id="form-edit" method="POST" action="{% url 'BookStore:book-update' book.id  %}">
+        <div class="text-2xl font-semibold mb-6">Update a Book</div>
+        {% csrf_token %}
+        <div class="mb-4 shadow-md">
+            <label for="id_title" class="block text-gray-700 text-sm font-bold mb-2">Title:</label>
+            {{ form.title }}
+        </div>
+        <div class="mb-4 shadow-md">
+            <label for="id_author_name" class="block text-gray-700 text-sm font-bold mb-2">Author Name:</label>
+            {{ form.author_name }}
+        </div>
+        <div class="mb-4 shadow-md">
+            <label for="id_genre" class="block text-gray-700 text-sm font-bold mb-2">Genre:</label>
+            {{ form.genre }}
+        </div>
+        <div class="mb-4 shadow-md">
+            <label for="id_description" class="block text-gray-700 text-sm font-bold mb-2">Description:</label>
+            {{ form.description }}
+        </div>
+        <div class="mb-4 shadow-md">
+            <label for="id_rate" class="block text-gray-700 text-sm font-bold mb-2">Rate:</label>
+            {{ form.rate }}
+        </div>
+        <div class="mb-4 shadow-md">
+            <label for="id_views" class="block text-gray-700 text-sm font-bold mb-2">Views:</label>
+            {{ form.views }}
+        </div>
+        <button type="submit" class="w-full bg-indigo-500 text-white py-2 px-4 rounded hover:bg-indigo-600 transition duration-300 shadow-md">Update</button>
+    </form>
+</div>
+
+{% endblock %}
